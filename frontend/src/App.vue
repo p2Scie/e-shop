@@ -33,6 +33,8 @@ html, body, #app {
 
 #app main {
   flex: 1 1 auto;
+  width: 100%;
+  padding-top: 4rem;
 }
 
 

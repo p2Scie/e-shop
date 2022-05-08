@@ -1,5 +1,6 @@
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
+import { passwordVerify } from "../authentication/utils";
 
 import {PrismaClient} from '@prisma/client';
 
@@ -17,9 +18,10 @@ passport.deserializeUser(async (id: string, done: any) => {
             }
         });
         done(null, user);
+
     } catch (e) {
         console.log(e);
-        return done(e);
+        return done(e, null);
     }
 });
 
@@ -28,24 +30,20 @@ passport.use(new LocalStrategy({
         usernameField: 'email',
         passwordField: 'password'
     }, async function (username: string, password: string, done: any) {
-        console.log("Verification function called");
         try {
             const user = await prisma.user.findUnique({
                 where: {
                     email: username
                 }
             });
-            // If user found, but password not valid
-            if (user?.password != password) {
-                return done(null, false);
+            if (user) {
+                const passwordCheck = await passwordVerify(password, user.password);
+                if(passwordCheck) return done(null, user);
             }
 
-            console.log(user);
-            return done(null, user)
         } catch (e) {
-            console.log("Cet utilisateur n'existe pas");
             console.log(e)
-            return done(e);
+            return done(e, false);
         }
     })
 );
