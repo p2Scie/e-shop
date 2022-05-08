@@ -1,27 +1,28 @@
 import {createRouter, createWebHistory} from 'vue-router';
 
-import store from '@/store';
+//import store from '@/store';
 import Home from "@/views/HomeView";
 import Auth from "@/views/AuthView";
+import LoginForm from "@/components/form/LoginForm";
+import SignupForm from "@/components/form/SignupForm";
+import UserView from "@/views/user/UserView";
+import CartView from "@/views/CartView";
+import AdminView from "@/views/admin/AdminView";
 
 const routes = [
-    { path: '/', component: Home, meta: { requiresUnauth: true } },
-    { path: '/login', component: Auth, meta: { requiresUnauth: true } },
-    {
-        path: '/admin', component: null, meta: { requiresAuth: true },
+    { path: '/', component: Home },
+    { path: '/auth', component: Auth,
         children: [
-            { path: 'dashboard', component: null },
-            { path: 'booking', component: null },
-            { path: 'rooms', component: null },
-            { path: 'profile', component: null },
-            { path: 'catalog', component: null }
+            { path: 'login', component: LoginForm },
+            { path: 'signup', component: SignupForm },
         ]
     },
-    {
-        path: '/user', component: null, meta: { requiresAuth: true },
+    { path: '/cart', component: CartView },
+    { path: '/admin', component: AdminView },
+    { path: '/user/:id', component: UserView,
         children: [
-            { path: 'cart', component: null },
-            { path: 'profile', component: null }
+            { path: 'account', component: null },
+            { path: 'orders', component: null }
         ]
     },
     { path: '/:notFound(.*)', component: null }
@@ -34,13 +35,14 @@ const router = createRouter({
     linkExactActiveClass: "active"
 })
 
+/*
 router.beforeEach((to, _, next) => {
-    if (to.meta.requiresAuth  && !store.state.currentUser) {
+    if (to.meta.requiresAuth && !store.state.currentUser) {
         next('/login');
     } else if (to.meta.requiresUnauth && store.state.currentUser) {
         next('/');
     }
     next();
 })
-
+*/
 export default router

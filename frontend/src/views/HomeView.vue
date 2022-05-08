@@ -1,19 +1,14 @@
 <template>
-  <div>
-    <h1>Films à l'affiche</h1>
-    <form class="box">
-      <!--<p>{{ currentUser }}</p>-->
-
-    </form>
-  </div>
+    <h1 class="title has-text-weight-bold"><span> Films à l'affiche </span></h1>
 </template>
 
 <script>
-export default {
-  data() {
-    return {
 
-    }
+export default {
+  components: {
+  },
+  data() {
+    return {}
   },
   computed: {
     currentUser() {

@@ -1,11 +1,10 @@
 <template>
-
-  <nav class="navbar" role="navigation" aria-label="main navigation">
-    <div class="container py-3">
+  <nav class="navbar is-spaced" role="navigation" aria-label="main navigation">
+    <div class="container">
       <div class="navbar-brand">
-        <a class="navbar-item" href="https://bulma.io">
+        <router-link class="navbar-item" to="/">
           <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
-        </a>
+        </router-link>
 
         <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
           <span aria-hidden="true"></span>
@@ -15,16 +14,34 @@
       </div>
 
       <div class="navbar-menu">
+
         <div class="navbar-end">
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link is-arrowless  is-light px-5">
+              <span class="icon">
+              <i class="fa-solid fa-user"></i>
+              </span>
+            </a>
+
+            <div class="navbar-dropdown">
+              <router-link to="" class="navbar-item">
+                Mon compte
+              </router-link>
+              <hr class="navbar-divider">
+              <router-link to="" class="navbar-item">
+                Se déconnecter
+              </router-link>
+            </div>
+          </div>
           <div class="navbar-item">
             <div class="buttons">
-              <a class="button is-light is-rounded">
+              <router-link to="/cart" class="button is-light">
               <span class="icon">
-              <i class="fa-solid fa-ticket"></i>
+              <i class="fa-solid fa-basket-shopping"></i>
               </span>
-                <strong>Billetterie</strong>
-              </a>
-              <router-link to="/login" class="button is-primary is-rounded">
+                <strong>Panier</strong>
+              </router-link>
+              <router-link to="/auth/login" class="button is-primary">
                 <strong>Se connecter</strong>
               </router-link>
             </div>

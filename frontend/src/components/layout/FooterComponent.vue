@@ -1,8 +1,8 @@
 <template>
-  <footer class="footer">
+  <footer class="footer is-dark">
     <div class="content has-text-centered">
-      <p>
-        <strong>Bulma</strong> by <a href="https://jgthms.com">Jeremy Thomas</a>. The source code is licensed
+      <p class="has-text-light">
+        Le Cinéma Bulma © 2022 — Tous droits réservés ®
       </p>
     </div>
   </footer>

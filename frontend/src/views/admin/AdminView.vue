@@ -1,10 +1,10 @@
 <template>
-  <form class="box"></form>
+  <h1 class="title">Espace administrateur</h1>
 </template>
 
 <script>
 export default {
-  name: "RegisterComponent"
+  name: "AdminView"
 }
 </script>
 
