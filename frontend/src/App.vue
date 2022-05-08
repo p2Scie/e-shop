@@ -1,9 +1,9 @@
 <template>
-  <header-component />
+  <header-component/>
   <main class="container">
-    <router-view />
+    <router-view/>
   </main>
-  <footer-component />
+  <footer-component/>
 </template>
 
 <script>
@@ -20,8 +20,20 @@ export default {
 </script>
 
 <style>
-html, body {
-  width: 100%;
+html, body, #app {
   height: 100%;
 }
+
+#app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+
+#app main {
+  flex: 1 1 auto;
+}
+
+
 </style>
