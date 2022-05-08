@@ -57,7 +57,7 @@ async function insertFilms(): Promise<void> {
             };
         })
 
-        const createMany = await prisma.film.createMany({
+        await prisma.film.createMany({
             data: films
         }).then(() => insertStock())
     })
@@ -68,7 +68,7 @@ async function insertFilms(): Promise<void> {
 async function insertStock(): Promise<void> {
 
     let stocks: any[] = [];
-    const films = await prisma.film.findMany().then((films) => {
+    await prisma.film.findMany().then((films) => {
         films.forEach(film => {
             stocks.push({
                 price: getRndInteger(5, 24),
@@ -78,7 +78,7 @@ async function insertStock(): Promise<void> {
         })
     });
 
-    const createMany = await prisma.stock.createMany({
+    await prisma.stock.createMany({
         data: stocks
     })
 }
