@@ -3,13 +3,19 @@ import {passwordHash} from "../../authentication/utils";
 import Film from "../../Models/Film";
 import axios from "axios";
 import film from "../../Models/Film";
+import Stock from "../../Models/Stock";
+import 'dotenv/config'
 
 const prisma = new PrismaClient();
 
 const loadData = async (): Promise<void> => {
     try {
-        await createAdmin()
-        getFilms()
+        await prisma.stock.deleteMany({});
+        await prisma.user.deleteMany({});
+        await prisma.film.deleteMany({});
+
+        await createAdmin();
+        await insertFilms();
     } catch (e) {
         console.error(e);
         process.exit(1);
@@ -19,7 +25,6 @@ const loadData = async (): Promise<void> => {
 }
 
 async function createAdmin(): Promise<void> {
-    await prisma.user.deleteMany({});
     const hashedPassword = await passwordHash('admin123', 10);
     await prisma.user.create({
         data: {
@@ -31,12 +36,11 @@ async function createAdmin(): Promise<void> {
     console.log("L'admin a bien été créer !")
 }
 
-async function getFilms(): Promise<void> {
-    await prisma.film.deleteMany({});
+async function insertFilms(): Promise<void> {
     const options = {
         method: 'GET',
         url: 'https://api.themoviedb.org/4/list/1',
-        params: {api_key: '0ab3f15a14f0842244b0370ec053f776', language: 'fr'},
+        params: {api_key: process.env.FILM_API_KEY , language: 'fr'},
     };
 
     axios.request(options).then(async function (response: any) {
@@ -55,9 +59,32 @@ async function getFilms(): Promise<void> {
 
         const createMany = await prisma.film.createMany({
             data: films
-        })
+        }).then(() => insertStock())
     })
     console.log("Films imported!")
+}
+
+
+async function insertStock(): Promise<void> {
+
+    let stocks: any[] = [];
+    const films = await prisma.film.findMany().then((films) => {
+        films.forEach(film => {
+            stocks.push({
+                price: getRndInteger(5, 24),
+                filmId: film.id,
+                quantity: getRndInteger(1, 100)
+            })
+        })
+    });
+
+    const createMany = await prisma.stock.createMany({
+        data: stocks
+    })
+}
+
+function getRndInteger(min: number, max: number) {
+    return Math.floor(Math.random() * (max - min) ) + min;
 }
 
 loadData().then(r => console.log('Done!'));
