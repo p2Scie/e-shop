@@ -41,3 +41,38 @@ model Session {
   data String
   expiresAt DateTime
 }
+//
+//model Booking {
+//  id Int @id @default(autoincrement())
+//  userId Int
+//  user User @relation(fields: [userId], references: [id])
+////  bookingStatusId BookingStatus
+////  bookingStatus BookingStatus @relation(fields: [bookingStatusId], references: [id])
+//  createdAt DateTime @default(now())
+//}
+
+//model Room {
+//  id Int @id @default(autoincrement())
+//  label String
+//  nbSeats Int
+//}
+//
+//model Seat {
+//  id Int @id @default(autoincrement())
+//  label String
+//  roomId Int
+//  room Room @relation(fields: [roomId], references: [id])
+//}
+
+model Film {
+  id Int @id @default(autoincrement())
+  title String
+  overview String
+  release_date String
+  vote_average Float
+  vote_count Int
+  original_language String
+  media_type String
+  adult Boolean
+}
+
