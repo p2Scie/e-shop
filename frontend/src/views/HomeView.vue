@@ -1,5 +1,5 @@
 <template>
-    <h1 class="title has-text-weight-bold"><span> Films à l'affiche </span></h1>
+    <h1 class="title has-text-weight-bold"><span> Liste de film </span></h1>
 </template>
 
 <script>

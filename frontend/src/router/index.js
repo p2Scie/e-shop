@@ -1,6 +1,6 @@
 import {createRouter, createWebHistory} from 'vue-router';
 
-//import store from '@/store';
+import store from '@/store';
 import Home from "@/views/HomeView";
 import Auth from "@/views/AuthView";
 import LoginForm from "@/components/form/LoginForm";
@@ -13,20 +13,15 @@ import AdminComponent from "@/views/admin/AdminComponent";
 
 const routes = [
     { path: '/', component: Home },
-    { path: '/auth', component: Auth,
+    { path: '/auth', component: Auth, meta: { requiresUnauth : true },
         children: [
             { path: 'login', component: LoginForm },
             { path: 'signup', component: SignupForm },
         ]
     },
     { path: '/cart', component: CartView },
-    { path: '/admin', component: AdminView,
-        children: [
-            {name: 'manage', path: 'manage', component: AdminComponent },
-            {name: 'filmEdit', path: 'film-edit', component: FilmEdit },
-        ]
-    },
-    { path: '/user/:id', component: UserView,
+    { path: '/admin', component: AdminView, meta: { requiresAuth : true } },
+    { path: '/user/:id', component: UserView, meta: { requiresAuth : true },
         children: [
             { path: 'account', component: null },
             { path: 'orders', component: null }
@@ -42,14 +37,15 @@ const router = createRouter({
     linkExactActiveClass: "active"
 })
 
-/*
+
 router.beforeEach((to, _, next) => {
-    if (to.meta.requiresAuth && !store.state.currentUser) {
-        next('/login');
-    } else if (to.meta.requiresUnauth && store.state.currentUser) {
+    if (to.meta.requiresAuth && !store.getters.isAuthenticated) {
+        next('/auth/login');
+    } else if (to.meta.requiresUnauth && store.getters.isAuthenticated) {
         next('/');
+    } else {
+        next();
     }
-    next();
 })
-*/
+
 export default router

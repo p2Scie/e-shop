@@ -2,8 +2,10 @@
   <form class="box" @submit.prevent="submitForm">
     <div class="field mb-6 has-text-centered">
       <h2 class="title">Connexion</h2>
-      <p class="subtitle is-6 ">Pas de compte ? <router-link to="/auth/signup" >Créez-en un maintenant
-        !</router-link></p>
+      <p class="subtitle is-6 ">Pas de compte ?
+        <router-link to="/auth/signup">Créez-en un maintenant !
+        </router-link>
+      </p>
     </div>
     <div class="field">
       <p class="control has-icons-left has-icons-right">
@@ -23,8 +25,8 @@
     </div>
     <div class="field mt-5">
       <p class="control has-text-centered">
-        <button class="button is-success is-rounded">
-          Se connecter
+        <button class="button is-success">
+          <strong> Se connecter</strong>
         </button>
       </p>
     </div>
@@ -32,13 +34,13 @@
 </template>
 
 <script>
+
 export default {
   data() {
     return {
-      username: null,
+      email: null,
       password: null,
       formIsValid: true,
-      error: []
     }
   },
   methods: {
@@ -48,21 +50,14 @@ export default {
         this.formIsValid = false;
         return;
       }
-    },
 
-    async login() {
-
-      try {
-        const res = await this.axios.post('http://localhost:8000/api/login', {
-          email: 'user1@test.fr',
-          password: 'user123'
-        }, {withCredentials: true})
-        console.log(res);
-
-      } catch (e) {
-        console.log(e)
-        console.log(e.response)
+      const FormData = {
+        email: this.email,
+        password: this.password
       }
+
+      this.$store.dispatch('login', FormData);
+
     },
   }
 }

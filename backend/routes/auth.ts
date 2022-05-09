@@ -7,14 +7,14 @@ const passport = require("passport");
 
 const router = express.Router();
 
-router.post('/login', passport.authenticate('local'),
+router.post('/auth/login', passport.authenticate('local'),
     (req: any, res: any) => {
         //req.session.authenticated = true;
         res.status(200).json({msg: 'logged in!', user: req.user});
     }
 );
 
-router.post("/register", async (req, res) => {
+router.post("/auth/signup", async (req, res) => {
     const {email, firstname, lastname} = req.body;
 
     const password = await passwordHash(req.body.password, 10);
@@ -31,7 +31,7 @@ router.post("/register", async (req, res) => {
         })
 
         if (newUser) {
-            res.status(201).json({
+            res.status(200).json({
                 msg: "L'utilisateur a bien été créer !",
                 newUser
             })
@@ -41,14 +41,14 @@ router.post("/register", async (req, res) => {
     }
 });
 
-router.get('/logout', (req: any, res: any, next: any) => {
+router.get('/auth/logout', (req: any, res: any, next: any) => {
     req.logout();
     //res.redirect('/login');
     res.json({msg: "Vous avez bien été déconnecter", user: req.user, session: req.sessionId})
 })
 
 //recupérer le user connecté
-router.get('/auth', (req: any, res: any) => {
+router.get('/auth/user', (req: any, res: any) => {
     if(req.user) {
         res.json({user: req.user})
     }
