@@ -51,7 +51,6 @@ async function insertFilms(): Promise<void> {
                 original_language: film.original_language,
                 release_date: film.release_date,
                 vote_average: film.vote_average,
-                vote_count: film.vote_count,
             };
         })
 

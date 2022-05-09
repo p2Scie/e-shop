@@ -37,7 +37,6 @@ export default {
     },
     editFilm() {
       if (this.$route.params.filmId !== undefined) {
-        console.log(this.vote_average)
         try {
           this.axios.put(`http://localhost:8000/api/edit-film/${this.$route.params.filmId}`,
               null,
@@ -45,8 +44,8 @@ export default {
                 params: {
                   title: this.film.title,
                   overview: this.film.overview,
-                  release_date: this.release_date.toString(),
-                  vote_average: this.vote_average
+                  release_date: this.film.release_date,
+                  vote_average: this.film.vote_average
                 }
               }).then(() => {
                 this.$router.push('manage');

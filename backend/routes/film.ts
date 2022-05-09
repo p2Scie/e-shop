@@ -26,8 +26,7 @@ router.get('/edit-film/:filmId', async (req: any, res: any) => {
 })
 
 router.put('/edit-film/:filmId', async (req: any, res: any) => {
-    console.log('req.query')
-    /*await prisma.film.update({
+    await prisma.film.update({
         where: {
             id: parseInt(req.params.filmId),
         },
@@ -35,9 +34,9 @@ router.put('/edit-film/:filmId', async (req: any, res: any) => {
             title: req.query.title,
             overview: req.query.overview,
             release_date: req.query.release_date,
-            vote_average: parse_float(req.query.voteAverage)
+            vote_average: parseFloat(req.query.vote_average)
         }
-    }).then((film) => res.send(film))*/
+    }).then((film) => res.send(film))
 })
 
 module.exports = router;
