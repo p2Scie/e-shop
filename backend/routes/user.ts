@@ -13,8 +13,7 @@ router.get('/user', (req: any, res: any) => {
 })
 
 router.get('/user/index', async (req, res) => {
-    const result = await prisma.user.findMany()
-    res.json(result)
+    await prisma.user.findMany().then((result) => res.json(result))
 })
 
 module.exports = router;

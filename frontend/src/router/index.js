@@ -8,6 +8,8 @@ import SignupForm from "@/components/form/SignupForm";
 import UserView from "@/views/user/UserView";
 import CartView from "@/views/CartView";
 import AdminView from "@/views/admin/AdminView";
+import FilmEdit from "@/views/admin/FilmEdit";
+import AdminComponent from "@/views/admin/AdminComponent";
 
 const routes = [
     { path: '/', component: Home },
@@ -18,7 +20,12 @@ const routes = [
         ]
     },
     { path: '/cart', component: CartView },
-    { path: '/admin', component: AdminView },
+    { path: '/admin', component: AdminView,
+        children: [
+            {name: 'manage', path: 'manage', component: AdminComponent },
+            {name: 'filmEdit', path: 'film-edit', component: FilmEdit },
+        ]
+    },
     { path: '/user/:id', component: UserView,
         children: [
             { path: 'account', component: null },

@@ -2,8 +2,6 @@ import {PrismaClient} from '@prisma/client';
 import {passwordHash} from "../../authentication/utils";
 import Film from "../../Models/Film";
 import axios from "axios";
-import film from "../../Models/Film";
-import Stock from "../../Models/Stock";
 import 'dotenv/config'
 
 const prisma = new PrismaClient();
@@ -87,4 +85,4 @@ function getRndInteger(min: number, max: number) {
     return Math.floor(Math.random() * (max - min) ) + min;
 }
 
-loadData().then(r => console.log('Done!'));
+loadData().then(() => console.log('Done!'));

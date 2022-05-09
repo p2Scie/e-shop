@@ -6,7 +6,6 @@ type Film = {
     original_language: string,
     release_date: string,
     vote_average: string,
-    vote_count: string,
 };
 
 export default Film;

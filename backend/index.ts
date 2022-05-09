@@ -16,6 +16,7 @@ const port: number = 8000;
 const adminRoutes = require("./routes/admin");
 const userRoutes = require('./routes/user');
 const authRoutes = require('./routes/auth');
+const filmRoutes = require('./routes/film');
 
 const corsOptions = {
     origin: 'http://localhost:8080',
@@ -47,7 +48,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(passport.authenticate('session'));
-app.use('/api', adminRoutes, userRoutes, authRoutes);
+app.use('/api', adminRoutes, userRoutes, authRoutes, filmRoutes);
 
 
 // Server setup

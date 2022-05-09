@@ -1,13 +1,12 @@
 <template>
-  <h1 class="title">Espace administrateur</h1>
+  <router-view></router-view>
 </template>
 
 <script>
 export default {
-  name: "AdminView"
+  name: "AdminView",
+  created() {
+    this.$router.push('manage');
+  }
 }
 </script>
-
-<style scoped>
-
-</style>
