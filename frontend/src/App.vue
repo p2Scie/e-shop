@@ -15,6 +15,9 @@ export default {
   components: {
     HeaderComponent,
     FooterComponent
+  },
+  created() {
+    this.$store.dispatch('autoLogin');
   }
 }
 </script>
